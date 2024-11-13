@@ -1,0 +1,95 @@
+Executing Shell scripts: 
+
+cat>exec_script.sh
+date
+cal
+who
+
+sh exec_script.sh # or bash exec_script.sh -> do not require the setting of path variable or execute permissions
+
+To execute the shell script
+STEP 1)
+set the PATH system variable to include the directory path which contains the file
+echo $PATH 
+PATH=$PATH:. #if the present directory is not included in PATH
+echo $PATH
+
+STEP 2)
+Provide Execute permissions for the file
+chmod u+x exec_script.sh #change the permissions
+
+STEP 3) 
+Execute the script
+exec_script.sh
+_______________________________________________________________
+
+User-defined Varibles:
+
+x1=10
+Price=100
+City=Mysore
+read num # to enter the value for the variable
+echo $num # to display the value of the variable
+echo "$x1"
+echo "$Price"
+echo "$City"
+echo "Welcome to the course on UNIX"
+MyCity=$City #assigning the value of one variable to another
+echo "My city is $MyCity"
+
+__________________________________________________
+
+export : Local and Global shell Variables
+
+
+cat>export_example.sh
+echo "The value of the variable x is $x"
+x=20
+echo "The value of the variable x is $x"
+
+
+x=200; sh export_example.sh
+
+export x ; sh export_example.sh
+
+_____________________________________________________________________
+
+Positional parameters : 
+cat>positional_parameters.sh
+echo "Your marks in Sem1 is : $1"
+echo "Your marks in Sem2 is : $2"
+echo "Your marks in Sem3 is : $3"
+
+set
+
+set hello how are you 
+echo "$1"
+echo "$2"
+echo "$3"
+echo "$4"
+
+set 100 200 300 400
+echo "$1"
+echo "$2"
+echo "$3"
+echo "$4"
+
+________________________________________________________
+
+
+
+Special Parameters : 
+cat>special_parameters.sh
+echo "The PID of the current SHELL -\$$   :$$"
+echo "The no of cmd line args-\$#         :$#"
+echo "The command name-\$0                :$0"
+echo "The cmd line args-\$*               :$*"
+echo "The exit status-\$?                 :$?"
+echo "Value of \$@                        :$@"
+
+____________________________________________________________________________________
+
+difference between $* and $@ :
+cat>special_parameters1.sh
+      cat  "$*" 
+      cat "$@"

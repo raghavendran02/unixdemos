@@ -1,0 +1,152 @@
+*************TEXT Processing commands****************
+wc -l emp.lst
+
+cat emp.lst | wc -l
+
+1)head
+
+head emp.lst  #displays first 10 lines
+
+head -3 emp.lst #or head -n 3 emp.lst displays first n lines
+
+ls -t  | head -1 # what is the output???
+
+2)tail
+
+tail emp.lst # prints the last ten lines of the file
+
+tail -n 2 emp.lst# or tail -2 prints the last 2 lines of the file
+
+tail -n +10 emp.lst #or tail +10 emp.lst from the 10th line onwards
+
+Q)how do u print the 5th record of the file emp.lst
+
+3)tr[translating charecters]:
+		
+tr options exp1 exp2 standard input
+tr options string1 string2
+
+tr command does not accept input file name as argument it has be from a filethrough redirection or from a pipe
+
+
+tr '|/' '~-' < emp.lst | head -3 # replace "|" with "~" and "/" with "-" 
+
+head -3 emp.lst | tr '[a-z]' '[A-Z]' #converts to uppercase 
+
+head -3 emp.lst | tr '|' '\n' #replaces | with a new line
+
+tr -d '|/' < emp.lst #deletes | and / from the file emp.lst
+
+tr -s  ' '< emp.lst | head -3 #compress multiple consecutive chars(space)
+
+tr -c '|/' '-' < emp.lst
+
+tr -cd '|/'  < emp.lst | head -3 # deletes everything other than | and /
+
+Q)What is difference between in the below 2 commands:
+tr  ' ' '#'< emp.lst | head -3
+tr -s  ' ' '#'< emp.lst | head -3 
+
+4)cut
+
+head -5 emp.lst > shortlist.lst # or head -n 5 emp.lst > shortlist.lst
+
+#Print the name and designation of all the shortlisted employees
+cut -c 8-22,25-32 shortlist.lst #cuts from the 8th to 22nd column(char) and 25th to 332nd column
+
+#Print the Emp no, Name, DOJ and Sal of all the shortlisted employees
+cut -c -4,6-22,50- shortlist.lst # -4 -->1-4,50- -->50-end of line
+
+#Print the Name and designation of the shortlisted employees
+cut -d "|" -f 2,3 shortlist.lst > cutlist1.lst #cut 2 and 3 field,delimited by |
+
+cut -d "|" -f 1,4- shortlist.lst > cutlist2.lst #cut 1 and 4th field onwards,delimited by |
+
+
+5)paste
+
+paste cutlist1.lst cutlist2.lst
+
+paste -d "|" cutlist1.lst cutlist2.lst
+
+
+6)sort 
+
+sort emp.lst #sort based on the first field
+
+sort -t "|" -k 2 emp.lst #or sort +1 ---> sorts the second field
+
+sort -t "|" -r -k 2  emp.lst #or sort -k 2r emp.lst sorts second field in reverse order
+
+sort -t "|"  -k 6   emp.lst
+sort -t "|"  -k 6 -n  emp.lst
+
+sort -r -t "|" -k 4 emp.lst  -o output
+
+cut -d "|" -f3 emp.lst | sort -u  #removes repeated lines
+
+11) uniq
+
+cut -d "|" -f3 emp.lst > uniq_example.lst
+
+
+sort -u uniq_example.lst 
+uniq uniq_example.lst # no change in output, uniq requires a sorted file as input
+sort uniq_example.lst | uniq  #removes repeated lines[uniq requires a sorted file as input]
+
+sort uniq_example.lst | uniq -u #displays only non repeated lines
+
+sort uniq_example.lst |uniq -d #displays all repeated lines
+sort uniq_example.lst |uniq -c #counting the frequency of occourance
+
+7)cmp
+
+cmp file1 file2 #compares file1 and file2 displays the byte and line no of the first difference
+
+
+8)comm
+
+comm file1 file2 #o/p 3 diff columns, col1 lines only in file1; col2 line only on file2 ;col3 lines                                        comm to file1 and file2
+
+9)grep
+
+grep 'Sales' emp.lst #or grep "Sales" emp.lst
+
+grep 'Jai Sharma' emp.lst
+
+grep -i 'agarwal' emp.lst #ignore case
+
+grep -v 'Director' emp.lst #select all lines not containing the pattern 'director'
+
+grep -n 'Marketing' emp.lst # prints the line nos containing the pattern
+
+grep -c 'Director' emp.lst # no of lines  containing the pattern 'director'
+
+grep -e 'Agarwal' -e 'Aggarwal' -e 'Agrawal' emp.lst #Matching Multiple patterns
+
+Q)Count the No of employees in the admin and accounts department
+
+Grep: Patterns as metacharecters
+
+grep '[aA]g*[ar][ar]wal' emp.lst 
+
+grep '^[0-9]$'  grep_example # lines containing single digits
+
+grep '^...$'  grep_example#lines containing exactly three charecters
+
+grep '^[0-9]' grep_example#lines beginning with a digit
+
+grep '[0-9]$' grep_example#lines ending with a digit
+
+Q)Count the No of blank lines from the file grep_example?
+Q)Delete the blank lines from the file grep_example?
+Q)select lines containing '$'?
+
+
+
+
+
+
+
+
+

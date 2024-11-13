@@ -1,0 +1,446 @@
+Options of echo command
+
+echo -n "hello"
+echo -e "hello\n\t"
+echo -ne "hello\n\t"
+__________________________________________________________
+
+TEST:
+a)To Evaluate numerical data
+a1=10 ; a2=20 ;test $a1 -eq $a2 ; echo $?
+a1="hello" ; test $a1 -eq $a2 ; echo $?
+
+a1=10 ; a2=20 ;[ $a1 -lt $a2 ] ; echo $?
+
+x=5 ; y=6 ; [ $x -lt $y ] ; echo $? 
+
+-----------------------------------------------------
+b)To Evaluate String data
+
+str1=ÒGlobalÓ ; str2=ÒGlobalÓ ; [ str1 = str2 ]; echo $?
+str1=ÒglobalÓ ; str2=ÒGlobalÓ ; [ $str1 = $str2 ]; echo $?
+
+
+test $str1 ; echo $? #same as [ $str1 ]
+test $str5 ; echo $?
+
+st1="100" ; st2=200 ; [ $st1 = $st2 ] ; echo $?
+
+----------------------------------------------------
+c)To evaluate files
+
+[ -x executing_shell_scripts.sh ] ;echo $?
+
+----------------------------------------------------
+
+d)use Logical operators(-a,-o,!) used with test
+
+x=10 ; [ $x -lt 15 -a $x -gt 15 ] ;echo $?
+
+
+x=10 ; [ ! $x -lt 5 ] ; echo $?
+
+
+_____________________________________________________________________________
+
+Quoting
+
+1)  Backward quotes 
+ echo `echo $x` 
+ echo `date`      
+ 
+2) single forward  quotes   
+x=10
+echo 'the value of x is $x'
+echo 'echo $x'
+
+3) double quotes
+x=10
+echo "the value of x is $x"
+echo "echo $x"
+
+echo "Todays date is `date`"
+
+__________________________________________________________________________
+
+expr
+
+
+x=10 ; y=20 ; z=`expr $x + $y` ; echo $z
+
+x=10 ; y=hello ; z=`expr $x + $y` ; echo $z
+
+echo `expr 10 + 20`
+
+echo `expr 10 * 20`
+
+echo `expr 10 \* 20`	
+
+
+_______________________________________________________________
+
+conditional Execution
+
+cat>file_1
+8000
+9000
+7000
+grep 9000 file_1 && echo "Correct"
+
+grep 9000 file_1 > /dev/null && echo "Correct"
+
+grep 2000 file_1 || echo "Wrong"
+____________________________________________________________________________
+
+a)simple if
+cat>simple_if.sh
+echo -n "enter a string :"
+read x
+if test $x #1 if null ; 0 if not null
+then
+	echo "x is not a null string"
+fi
+echo "Outside if"
+
+b)else if
+
+cat>if_then_else.sh
+echo -n "Enter a number: "
+read x
+ if  [ $x -lt 15 -a $x -gt 5 ]     
+ then
+         echo "Number is in the range 5 to 15"
+  else
+         echo "Number is not in the range 5 to 15"
+fi
+echo "outside if"
+
+c)
+cat>else_if.sh
+echo -n "Enter a number: "
+read x
+if  [  $x -eq 10  ]
+then
+	echo "Equal to 10"
+elif  [  $x  -gt  10  ]
+then
+	echo "Greater than 10"
+else
+	echo "Less than 10"
+fi
+echo "Outside if"
+__________________________________________________________________________
+
+b)for
+
+cat>for1.sh
+cat>for_example1.sh
+for y in 1 2 3 4 5
+do
+echo $y
+done
+
+
+cat>for_example2.sh
+for file in global global1 global2 global3 global4
+do
+  cp $file ${file}.txt
+  echo "file $file copied to $file.txt"
+done
+
+
+i)list from system variables
+cat>for_example3.sh
+for var in $PATH $HOME $LOGNAME
+do
+  echo "$var"
+done
+
+ii)list from command substiution
+
+cat>for_example4.sh
+for file in `cat cmd_sub`
+do echo -e "file contents are: \n"
+   cat  "$file"
+done
+
+
+
+iii)list from wild cards
+
+cat>for_wild_cards.sh
+count_textfiles=0
+count_shellscripts=0
+dir_count=0
+
+#to count the no of text files in the directory
+for file in *.txt
+ do
+        count_textfiles=`expr $count_textfiles + 1`
+done
+
+#to count the no of shell scripts in the directory
+for file in *.sh
+do
+   count_shellscripts=`expr $count_shellscripts + 1`
+done
+
+#to count the no of sub directories present in the directory
+
+for file in *
+do
+   if [ -d $file ]
+   then
+        dir_count=`expr $dir_count + 1`
+   fi
+done
+
+echo "there are $count_textfiles text files in the directory"
+echo "there are $count_shellscripts shell scripts in the directory"
+echo "there are $dir_count subdirectories in the directory"
+
+iv) list from positional parameters
+
+cat>positionalfor1.sh
+count=0
+for i in $*     # here $* contains command line arguments
+do
+   echo $i
+   count=`expr $count + 1`
+done
+echo "the no of iterations of for loop is: $count"
+
+cat>positionalfor2.sh
+count=0
+for i in "$*"     # here $* contains command line arguments
+do
+   echo $i
+   count=`expr $count + 1`
+done
+echo "the no of iterations of for loop is: $count"
+
+cat>positionalfor3.sh
+for pattern in "$@"
+do
+grep "$pattern" emp.lst > /dev/null  || echo "Pattern $pattern not found in the file emp.lst"
+grep $pattern emp.lst > /dev/null && echo "Pattern $pattern found in the file emp.lst"
+done
+
+
+grep "Jai Sharma" emp.lst
+
+
+
+sh positionalfor3.sh 2345 1265 "Jai Sharma" 9999
+
+
+
+cat>for_example3.sh
+for file in *.c
+do
+    file1=`echo $file | cut -d "." -f1`
+    cp $file ${file1}.cpp
+    echo "file $file copied to $file1.cpp"
+done
+
+--------------------------------------------------------------
+
+e)while
+
+i)setting up an infinite loop
+cat>while_example.sh
+x=1
+while test $x -le 4
+do
+ echo -ne  "$x\t"
+ x=`expr $x + 1`
+done
+
+
+
+---------------------------------------------
+f)until
+
+done
+
+cat>until_example.sh
+x=1
+until test $x -gt 4
+do
+   echo -ne "$x\t"
+   x=` expr $x + 1 `
+done
+echo -e "\n"
+
+___________________________________________________
+
+break
+a)
+cat>break.sh
+read num
+var=2
+while  [  $var  -lt  $num  ]
+do
+	rem=`expr  $num  %  $var`
+	if  [ $rem  -eq  0 ]
+	then
+		echo  "Not Prime Number"
+		break
+	fi
+	var=`expr  $var  +  1`
+done
+if  [ $var  -ge  $num ]
+then
+	echo  "Prime Number"
+fi
+
+cat>break1.sh
+i=1
+while [ $i -le 5 ]
+do
+echo -e "Iteration: $i"
+j=1
+    while [ $j -le 10 ]
+    do
+          if [ $j -eq 5 ]
+          then
+              break 2
+          else
+            echo -ne "inside the innermost while: $j\n"
+          fi
+          j=`expr $j + 1`
+    done
+     i=`expr $i + 1`
+     echo -e "\noutside the innermost while"
+done
+echo "End of Script"
+
+
+
+___________________________________________________________________________
+
+continue
+
+cat>continue.sh
+for  val  in  date  who  exit  cal
+do
+	if  [  $val  =  exit  ]
+	then
+		continue
+	fi
+	echo -e "`$val`\n"
+done
+
+
+cat>continue1.sh
+i=1
+while [ $i -le 5 ]
+do
+echo -e "Iteration: $i"
+j=1
+    while [ $j -le 10 ]
+    do
+          if [ $j -eq 5 ]
+          then
+          continue 2
+          else
+            echo -ne "$j\t"
+          fi
+           j=`expr $j + 1`
+     done
+     i=`expr $i + 1`
+     echo -e "\n"
+done
+
+cat>continue2.sh
+i=1
+while [ $i -le 5 ]
+do
+
+echo -e "Iteration: $i"
+i=`expr $i + 1`
+j=1
+echo -e "\n"
+    while [ $j -le 10 ]
+    do
+          if [ $j -eq 5 ]
+          then
+          continue 2
+          else
+            echo -ne "$j\t"
+          fi
+           j=`expr $j + 1`
+     done
+     
+     echo -e "\n"
+done
+
+__________________________________________________________________________
+
+exit
+
+cat > exit.sh
+i=1
+while [ $i -le 5 ]
+do
+echo -e "Iteration: $i"
+j=1
+    while [ $j -le 10 ]
+    do
+          if [ $j -eq 5 ]
+          then
+            exit
+          else
+            echo -ne "$j\n\n"
+          fi
+           j=`expr $j + 1`
+     done
+     i=`expr $i + 1`
+     echo -e "\n"
+done
+
+
+#replace exit by continue and predict the output
+#replace exit by continue 2 and predict the output
+
+
+____________________________________________________________________________
+
+
+trap
+
+Important signals
+– hang-up -- denoted by code number 1
+– interrupt (Ctrl-C)--code number 2
+– terminate (kill command) -- code number 15
+
+
+cat>need_trap_example.sh
+grep "2345"  $1 | cut -d "|" -f1,2,3 > tmp1
+grep "Jai Sharma"  $1 | cut -d "|" -f1,2,3 > tmp2
+paste tmp1 tmp2
+rm  tmp1 tmp2
+
+trap commands signal-list
+
+trap 'rm tmp1 tmp2;echo "program interrupted or killed" ;exit 1' 2
+grep "2345"  $1 | cut -d "|" -f1,2,3 > tmp1
+grep "Jai Sharma"  $1 | cut -d "|" -f1,2,3 > tmp2
+echo -n "Enter your data:"
+read x
+paste tmp1 tmp2
+rm -f tmp1 tmp2
+
+
+
+cat>trap_example1.sh
+trap 'echo "You cannot exit without entering data"'  2   
+echo -n "Enter your data:"
+read data
+echo "The data entered is : " $data
+
+
+
+
+
+

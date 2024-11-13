@@ -1,0 +1,118 @@
+cat>emp.lst #create emp.lst
+2233 | A.K.Shkla       |G.M         | Sales       |12/12/03 | 6000
+2234 | Jai Sharma      |Director    | Production  |12/03/03 | 700
+9256 | Sumit           |D.G.M       | Sales       |12/06/03 | 6000
+2365 | Barun           |Director    | Personnel   |12/05/03 | 7000
+5423 | N.K.Gupta       |Chairman    | Admin       |12/06/03 | 80
+1006 | Chanchal Singhvi|Director    | Sales       |12/07/03 | 5000
+2225 | Karuna Ganguly  |G.M         | Accounts    |12/07/03 | 40
+1265 | S.N.Das Gupta   |Manager     | Sales       |12/11/03 | 3000
+4290 | Jayant          |Executive   | Production  |12/01/03 | 2000
+2476 | Anil Aggarwal   |Manager     | Sales       |12/11/03 | 1000
+6521 | Lalith Cohoudry |Director    | Marketing   |12/11/03 | 9000
+3212 | Shyam Saksena   |D.G.M       | Accounts    |12/12/03 | 6000
+3564 | Sudhir Agarwal  |Executive   | Personnel   |12/07/03 | 8000
+2345 | JK.B.Saxena     |G.M         | Marketing   |12/04/03 | 70000
+0110 | V.K.Agarwal     |G.M         | Marketing   |12/05/03 | 4000
+
+[ctrl-d]
+
+cat>file1 #create file1
+c.k.s
+c s
+s.n.d
+sumit
+[ctrl-d]
+
+cat>file2 #create file2
+anil
+barun
+c.k.s
+lalit
+s.n.d
+[ctrl-d]
+
+cat>file3 #create file3
+c.k.s
+c s
+s.n.d
+sumit
+[ctrl-d]
+
+cat>addressbook
+Anup Kumar
+Anup_Kumar@yahoo.com
+234567
+Vinod Sharma
+Vinod_Sharma@rediffmail.com
+973109987
+Madhuri_Bahl
+MAdhuri@gamil.com
+55556678
+[ctrl-d]
+
+cat>numfile
+4
+20
+27
+10
+2
+1
+0
+07
+[ctrl-d]
+cat>amount
+5000
+200
+300
+500
+600
+$400
+700$
+900
+200
+800
+$7
+[ctrl-d]
+
+cat>grep_example
+This is an example
+for grep contas some
+sample
+cde
+5 This is five
+A
+cat
+a
+E
+77 This is seventy seven
+I
+2
+05
+rat
+Highest score -6
+mat
+eight multiplied by eight 64
+A\^
+123
+999
+Use grep to search A file for a pattern
+A \ is used to escape the meaning of the charecter A
+^ This is a not - used to complementing
+[^pqr] - matches a single char which is not in [pqr]
+^ can be pronounced as a cap symbol or a not symbol
+$ is used with Shell varibles and with shell's Positional Parameters
+$? returns the exit status of a command
+
+\$ - escape $
+\\$ - escape \$
+\\\$ - escape \\$
+
+
+
+A^ This is read is A cap or A not.
+this A^ also read as A cap.
+capping A A^
+
+
+[ctrl-d]
