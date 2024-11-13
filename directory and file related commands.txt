@@ -1,0 +1,112 @@
+Basic UNIX COMMANDS
+Execute the below commands by launching the unix terminal
+1.	Fetch the working directory 
+pwd
+2.	display a message "welcome to the world on unix"
+echo "welcome to the world on unix"
+3.	display the login name and the home directory
+echo $LOGNAME
+echo $HOME
+4.	list the users who have connected to the unix terminal
+who 
+5.	Display the system date and time of the unix terminal
+date
+6.	display todays calendar
+cal
+
+7.	Get the manual documentation of cat command
+man cat
+
+8.	 clear the terminal screen
+clear #or ctrl l
+
+9.	execute the below :
+a)	create a file with the name SampleFile in the current working directory and enter some contents(at least 10 lines)
+
+cat>SampleFile
+
+b)	display the contents of SampleFile
+
+cat SampleFile
+
+c)	append some contents to the file SampleFile
+
+cat>>SampleFile
+d)	create a copy of the file SampleFile with the name SampleFile.txt in the same directory
+
+cp SampleFile SampleFile.txt
+
+e)	display the contents of the current working directory
+ls
+
+f)	remove the file SampleFile
+rm SampleFile
+g)	Create a directory with the name Labs
+mkdir Labs
+h)	 move the file SampleFile.txt into the directory Labs
+   mv SampleFile.txt Labs
+i)	Create a sub-directory Day1/session1/assign1 within the Labs directory
+ 
+mkdir -p Labs/Day1/session1/assign1
+j)	create empty files file1 file2 file3 in the current directory
+touch file1 file2 file3
+k)	 copy these empty files created to Day1/session1/assign1 directory
+
+ 
+		cp file1 file2 file3 Labs/Day1/session1/assign1
+l)	remove the empty files in the current directory
+rm file1 file2 file3
+m)	display the contents of Labs/Day1/session1/assign1 directory
+
+ls Labs/Day1/session1/assign1
+
+n)	change the directory to Day1/session1 using relative path
+
+cd Labs/Day1/session1 
+ 
+o)	create a sub-directory  assign2 under Day1/Session1  using absolute path and confirm its creation
+
+ 
+		mkdir /home/raghavendra/Labs/Day1/session1/assign2
+		ls
+p)	get back to the Labs directory
+		cd ../..
+q)	provide the detailed listing of the files and directories in your home directory 
+ls $HOME or ls /user/raghavendra
+r)	remove the directory assign2 which is under Day1/sesssion1 using absolute path
+
+rmdir Day1/session1/assign2
+
+s)	remove the entire directory structure under Day1
+		rm -r Day1
+t)	rename the File SampleFile.txt in Labs Directory as sample
+mv SampleFile.txt sample
+10.	display the first 5 lines of the file sample
+head -n 5 sample
+
+
+
+11.	display the last 5 files of the file sample
+tail -n 5 sample
+
+fs Shell COMMANDS
+1.	Create a directory on HDFS with the name Labs
+hadoop fs -mkdir Labs or hadoop fs -mkdir /user/raghavendra/Labs
+Confirm the creation using: hadoop fs -ls
+2.	Connect to the Namenode webUI and get the Absolute path of the Labs folder.
+	https://machinename:50070
+3.	 copy the file sample to HDFS into the Labs directory
+hadoop fs -put sample Labs
+hadoop fs -ls Labs
+4.	Remove the file sample on the local file system
+rm sample
+5.	Display the contents of the file SampleFile.txt on HDFS
+hadoop fs -cat /user/raghavendra/Labs/sample
+or
+hadoop fs -cat Labs/sample
+6.	Rename the file SampleFile.txt on HDFS to sample.txt in the same path
+hadoop fs -mv Labs/sample Labs/sample.txt
+hadoop fs -ls Labs
+7.	Retrieve the file sample file to the local file system with the name SampleFile.txt and display its contents
+hadoop fs -get Labs/sample.txt ./SampleFile.txt
+cat SampleFile.txt
