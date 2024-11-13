@@ -1,0 +1,15 @@
+read x
+case $x in
+        5) echo "Five";;
+        10) echo "Ten";;
+        15) echo "Fifteen";;
+        *) echo "Wrong value";;
+esac
+------------------
+
+  case `expr 10 + 5` in
+        5) echo "Five";;
+        10) echo "Ten";;
+        15) echo "Fifteen";;
+        *) echo "Wrong value“
+esac
